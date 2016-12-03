@@ -4,7 +4,18 @@
   "description": "Books app to learn ui-router, components, gulp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "bower install",
+
+    "update-deps": "npm update",
+    "postupdate-deps": "bower update",
+
+    "prestart": "npm install",
+    "start": "node . | bunyan -o short",
+    "start:dev": "node-dev . | bunyan -o short",
+
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js",
+    "test-single-run": "karma start karma.conf.js --single-run"
   },
   "keywords": [
     "library",
