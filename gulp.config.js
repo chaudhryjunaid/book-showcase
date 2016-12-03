@@ -1,15 +1,16 @@
 module.exports = function() {
-  var tmp = './tmp/';
+  var public = './public/';
   var client = './client/';
-  var build = './public/';
+  var build = './build/';
   return {
     allJs: [
       '**/*.js',
       '!node_modules/**',
       '!client/bower_components/**'
     ],
-    vendorCss: '',
-    appCss: client + 'app.css',
-    build: build
+    allCss: client + 'app.css',
+    build: build,
+    public: public,
+    client: client
   };
 };

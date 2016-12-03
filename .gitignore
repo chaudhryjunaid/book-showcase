@@ -54,3 +54,4 @@ jspm_packages
 config/env/development.json5
 config/env/production.json5
 config/env/test.json5
+build
