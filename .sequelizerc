@@ -1,0 +1,7 @@
+var path = require('path')
+var config = require('./config/config');
+
+module.exports = {
+    'config': path.resolve('db', 'config.js'),
+    'migrations-path': path.resolve('db', 'migrate')
+};

@@ -24,10 +24,10 @@ var sequelize =  onHeroku ?
         }
     })
     :
-    new Sequelize(config.db.name, config.db.username, config.db.password, {
+    new Sequelize(config.db.database, config.db.username, config.db.password, {
         host: config.db.host,
         port: config.db.port,
-        dialect: 'mysql',
+        dialect: config.db.dialect,
         storage: config.db.storage,
         logging: config.enableSequelizeLog === 'true' ? log.debug.bind(log) : false
     });

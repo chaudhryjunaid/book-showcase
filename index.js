@@ -6,6 +6,8 @@ var config = require('./config/config');
 var app = require('./config/express');
 var http = require('http');
 
+require('./config/sequelize');
+
 // set port
 var port = normalizePort(config.PORT || '5000');
 app.set('port', port);

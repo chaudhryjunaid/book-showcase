@@ -1,14 +1,15 @@
 {
     PORT: 5001,
-    // test database configuration
+    // Database configuration
     db: {
-        name: "book_testdb
-        password: "",
-        username: "root",
-        host: "localhost",
+        database: 'bookdb_test',
+        username: 'root',
+        password: '',
+        dialect: 'mysql',
+        host: 'localhost',
         port: 3306
     },
     app: {
-        name: "Library - Test"
+        name: 'Book Showcase - Test'
     }
 }
