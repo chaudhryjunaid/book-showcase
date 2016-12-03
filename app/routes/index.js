@@ -12,7 +12,7 @@ module.exports =
   .reduce(function(output, file) {
     log.info('Loading route file ' + file);
     var router = require(path.join(__dirname,file));
-    var routeName = file === 'home.js' ? '' : path.basename(file) ;
+    var routeName = file === 'home.js' ? '' : path.basename(file, '.js') ;
     output['/'+routeName] = router;
     return output;
   },{})

@@ -11,6 +11,13 @@ var db = {};
 
 log.info('Initializing Sequelize...');
 
+Sequelize.Promise.config({
+  // Enables all warnings except forgotten return statements.
+  warnings: {
+    wForgottenReturn: false
+  }
+});
+
 // create your instance of sequelize
 var onHeroku = !!process.env.DYNO;
 log.info('Checking if running on Heroku: ',onHeroku);
