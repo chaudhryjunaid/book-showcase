@@ -1,5 +1,7 @@
 // home controller
 
+var path = require('path');
+
 module.exports.index = function (req, res) {
-  res.send('index');
+  return res.sendFile(path.join(config.root,'client','index.html'));
 };
