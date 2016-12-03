@@ -1,0 +1,14 @@
+{
+    PORT: 5001,
+    // test database configuration
+    db: {
+        name: "book_testdb
+        password: "",
+        username: "root",
+        host: "localhost",
+        port: 3306
+    },
+    app: {
+        name: "Library - Test"
+    }
+}

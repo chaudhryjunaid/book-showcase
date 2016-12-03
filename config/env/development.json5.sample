@@ -1,0 +1,13 @@
+{
+    // Database configuration
+    db: {
+        name: "bookdb",
+        password: "",
+        username: "root",
+        host: "localhost",
+        port: 3306
+    },
+    app: {
+        name: "Library - Development"
+    }
+}
