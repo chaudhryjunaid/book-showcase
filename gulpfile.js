@@ -59,10 +59,10 @@ gulp.task('run:dev', function() {
   });
   return stream
     .on('restart', function () {
-      _log('restarted!')
+      _log('*** Server restarted')
     })
     .on('crash', function () {
-      _log('Application has crashed!\n')
+      _log('*** Server crashed!\n')
       //stream.emit('restart', 10)  // restart the server in 10 seconds
     })
     .on('readable', function() {
