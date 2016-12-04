@@ -9,6 +9,16 @@ module.exports = function() {
       '!client/bower_components/**'
     ],
     allCss: client + 'app.css',
+    main: 'index.js',
+    serverFiles: [
+      'app/**/*.js',
+      'config/**/*.js',
+      'db/**/*.js',
+      'index.js'
+    ],
+    clientFiles: [
+      client + '**/*'
+    ],
     build: build,
     public: public,
     client: client

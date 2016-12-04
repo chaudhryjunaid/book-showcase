@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var _ = require('lodash');
 var args = require('yargs').argv;
 var del = require('del');
+var spawn = require('child_process').spawn;
 
 var $ = require('gulp-load-plugins')({lazy: true});
 var config = require('./gulp.config')();
@@ -41,4 +42,43 @@ gulp.task('clean:css', function() {
 
 gulp.task('autocompile:css', function(){
   return gulp.watch([config.allCss], ['compile:css']);
+});
+
+gulp.task('run:dev', function() {
+  var bunyan;
+  var stream = $.nodemon({
+    script: config.main,
+    delayTime: 1,
+    env: {
+      PORT: 5000,
+      NODE_ENV: 'development'
+    },
+    watch: config.serverFiles,
+    stdout:   false,
+    readable: false
+  });
+  return stream
+    .on('restart', function () {
+      _log('restarted!')
+    })
+    .on('crash', function () {
+      _log('Application has crashed!\n')
+      //stream.emit('restart', 10)  // restart the server in 10 seconds
+    })
+    .on('readable', function() {
+
+      // free memory
+      bunyan && bunyan.kill();
+
+      bunyan = spawn('./node_modules/bunyan/bin/bunyan', [
+        '--output', 'short',
+        '--color'
+      ]);
+
+      bunyan.stdout.pipe(process.stdout)
+      bunyan.stderr.pipe(process.stderr)
+
+      this.stdout.pipe(bunyan.stdin)
+      this.stderr.pipe(bunyan.stdin)
+    });
 });
