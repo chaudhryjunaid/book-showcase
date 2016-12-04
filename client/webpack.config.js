@@ -22,6 +22,16 @@ module.exports = {
       {
         test: /\/bower_components\/html5-boilerplate\/dist\/js\/vendor\/modernizr.*\.js$/,
         loader: "imports?this=>window!exports?window.Modernizr"
+      },
+      {
+        test: /\.html$/,
+        exclude: [/node_modules/],
+        loader: "raw-loader"
+      },
+      {
+        test: /\.(png|jpg|jpeg|ttf|eot)$/,
+        exclude: [/node_modules/],
+        loader: "url-loader?limit=8192"
       }
     ]
   },
