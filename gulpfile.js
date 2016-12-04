@@ -3,6 +3,7 @@ var _ = require('lodash');
 var args = require('yargs').argv;
 var del = require('del');
 var spawn = require('child_process').spawn;
+var webpack = require("webpack-stream");
 
 var $ = require('gulp-load-plugins')({lazy: true});
 var config = require('./gulp.config')();
@@ -14,7 +15,7 @@ var _log = function(msg) {
 gulp.task('vet', function() {
   _log('Linting javascript files...');
   return gulp
-    .src(config.alljs)
+    .src(config.allJs)
     .pipe($.if(args.verbose,$.print()))
     .pipe($.eslint({
       quiet: true // ignore warnings
@@ -23,27 +24,30 @@ gulp.task('vet', function() {
     .pipe($.eslint.failAfterError());
 });
 
-gulp.task('compile:css', ['clean:css'], function() {
-  return gulp
-    .src(config.allCss)
-    .pipe($.plumber())
-    .pipe($.autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(gulp.dest(config.build));
-});
-
-gulp.task('clean:css', function() {
-  _log('Cleaning all css...');
-  var files = config.build + '**/*.css';
+gulp.task('clean', function() {
+  _log('Cleaning client files...');
+  var files = config.dist + '**/*';
   return del(files);
 });
 
-gulp.task('autocompile:css', function(){
-  return gulp.watch([config.allCss], ['compile:css']);
+gulp.task('autobuild:dev', ['webpack:build-dev'], function() {
+  gulp.watch(['client/**/*'], ["webpack:build-dev"]);
 });
 
+// Production build
+gulp.task("build", ["webpack:build"]);
+
+gulp.task("webpack:build", function(callback) {
+  return gulp.src(config.client+'app.js')
+    .pipe(webpack( require('./webpack-production.config.js') ))
+    .pipe(gulp.dest(config.dist));
+});
+
+gulp.task("webpack:build-dev", function(callback) {
+  return gulp.src(config.client+'app.js')
+    .pipe(webpack( require('./webpack.config.js') ))
+    .pipe(gulp.dest(config.dist));
+});
 gulp.task('run:dev', function() {
   var bunyan;
   var stream = $.nodemon({

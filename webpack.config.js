@@ -1,6 +1,7 @@
 var path = require('path');
 
 module.exports = {
+  context: path.join(__dirname, '/client'), // use absolute path to avoid errors
   entry: ['./app.js'],
   output: {
     path: path.resolve('./dist/'),

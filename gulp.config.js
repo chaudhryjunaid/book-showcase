@@ -1,14 +1,13 @@
 module.exports = function() {
-  var public = './public/';
   var client = './client/';
-  var build = './build/';
+  var dist = './client/dist/';
   return {
     allJs: [
       '**/*.js',
       '!node_modules/**',
-      '!client/bower_components/**'
+      '!client/bower_components/**/*',
+      '!client/node_modules/**/*'
     ],
-    allCss: client + 'app.css',
     main: 'index.js',
     serverFiles: [
       'app/**/*.js',
@@ -19,8 +18,7 @@ module.exports = function() {
     clientFiles: [
       client + '**/*'
     ],
-    build: build,
-    public: public,
-    client: client
+    client: client,
+    dist: dist
   };
 };
