@@ -6,7 +6,8 @@ module.exports = function() {
       '**/*.js',
       '!node_modules/**',
       '!client/bower_components/**/*',
-      '!client/node_modules/**/*'
+      '!client/node_modules/**/*',
+      '!client/dist/**/*'
     ],
     main: 'index.js',
     serverFiles: [
