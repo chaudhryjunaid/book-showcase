@@ -5,8 +5,8 @@ require('./bower_components/html5-boilerplate/dist/css/main.css');
 require('./app.css');
 
 require('./bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js');
-require('./bower_components/angular/angular.js');
-require('./bower_components/angular-route/angular-route.js');
+require('angular');
+require('angular-route');
 require('./app.js');
 require('./view1/view1.js');
 require('./view2/view2.js');
