@@ -1,0 +1,12 @@
+{
+  "name": "book-showcase-client",
+  "version": "0.2.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chaudhry Junaid Anwar",
+  "license": "MIT",
+  "dependencies": {}
+}
