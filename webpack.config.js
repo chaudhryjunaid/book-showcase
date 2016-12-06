@@ -4,7 +4,7 @@ module.exports = {
   context: path.join(__dirname, '/client'), // use absolute path to avoid errors
   entry: ['./app.js'],
   output: {
-    path: path.resolve('./dist/'),
+    path: path.join(__dirname,'client','dist'),
     publicPath: 'dist/',
     filename: 'bundle.js'
   },
@@ -37,6 +37,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.es6', '.css']
+    extensions: ['', '.js', '.es6', '.css', '.html']
   }
 };
