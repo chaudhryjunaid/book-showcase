@@ -8,5 +8,10 @@
   },
   "author": "Chaudhry Junaid Anwar",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-loader": "^1.5.9",
+    "angular-mocks": "^1.5.9",
+    "angular-ui-router": "^0.3.2"
+  }
 }
