@@ -28,16 +28,14 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
       url: '/view1',
       controller: 'View1Ctrl',
       template: require('./view1/view1.html'),
-      // template: 'h-w'
     })
     .state({
       name: 'view2',
       url: '/view2',
       controller: 'View2Ctrl',
       template: require('./view2/view2.html'),
-      // template: 'hello-world'
     });
 
-  //$urlRouterProvider.when('/', '/view1');
-  //$urlRouterProvider.otherwise('/view1');
+  $urlRouterProvider.when('/', '/view1');
+  $urlRouterProvider.otherwise('/view1');
 }]);
