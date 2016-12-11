@@ -68,6 +68,8 @@
     "standard-error": "^1.1.0",
     "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.3",
     "webpack-stream": "^3.2.0",

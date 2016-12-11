@@ -22,6 +22,11 @@ module.exports = {
         loader: 'style-loader!css-loader!autoprefixer-loader'
       },
       {
+        test: [/\.styl$/],
+        exclude: [],
+        loader: 'style-loader!css-loader!autoprefixer-loader!stylus-loader'
+      },
+      {
         test: /\/bower_components\/html5-boilerplate\/dist\/js\/vendor\/modernizr.*\.js$/,
         loader: "imports?this=>window!exports?window.Modernizr"
       },
