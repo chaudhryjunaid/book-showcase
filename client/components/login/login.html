@@ -1,14 +1,16 @@
 <div class="login-container">
-  <form name="loginForm">
-    <div class="row">
-      Username <input type="text" name="username"/>
-    </div>
-    <div class="row">
-      Password <input type="password" name="password"/>
-    </div>
-    <div class="row">
-      <input type="button" ng-click="attemptLogin()" value="Login"/>
-      <input type="reset" value="Cancel"/>
-    </div>
-  </form>
+  <div class="form-container">
+    <form name="loginForm">
+      <div class="row input-group">
+        <input type="text" class="form-control" placeholder="Username" name="username" ng-model="username"/>
+      </div>
+      <div class="row input-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" ng-model="password"/>
+      </div>
+      <div class="row pull-right">
+        <span class=""><input type="button" class="btn btn-primary" ng-click="attemptLogin()" value="Login"/></span>
+        <span class=""><input type="reset" class="btn btn-default" value="Cancel"/></span>
+      </div>
+    </form>
+  </div>
 </div>
