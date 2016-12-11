@@ -2,9 +2,13 @@
 
 require('./bower_components/html5-boilerplate/dist/css/normalize.css');
 require('./bower_components/html5-boilerplate/dist/css/main.css');
+require('./node_modules/bootstrap/dist/css/bootstrap.css');
 require('./app.css');
 
 require('./bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js');
+
+require('jquery');
+require('bootstrap');
 require('angular');
 require('angular-ui-router');
 

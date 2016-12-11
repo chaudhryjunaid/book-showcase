@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname, '/client'), // use absolute path to avoid errors
@@ -17,7 +18,7 @@ module.exports = {
       },
       {
         test: [/\.css$/],
-        exclude: [/node_modules/],
+        exclude: [],
         loader: 'style-loader!css-loader!autoprefixer-loader'
       },
       {
@@ -30,12 +31,19 @@ module.exports = {
         loader: "raw-loader"
       },
       {
-        test: /\.(png|jpg|jpeg|ttf|eot)$/,
-        exclude: [/node_modules/],
-        loader: "url-loader?limit=8192"
+        test: /\.(woff2?|png|jpg|jpeg|ttf|eot|svg)$/,
+        exclude: [],
+        loader: "url-loader?limit=10000"
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery'
+    })
+  ],
   resolve: {
     extensions: ['', '.js', '.es6', '.css', '.html']
   }
