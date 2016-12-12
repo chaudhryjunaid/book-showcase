@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname, '/client'), // use absolute path to avoid errors
-  entry: ['./app.js'],
+  entry: ['./app.es6'],
   output: {
     path: path.join(__dirname, 'client', 'dist'),
     publicPath: 'dist/',

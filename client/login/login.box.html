@@ -7,9 +7,12 @@
       <div class="row input-group">
         <input type="password" class="form-control" placeholder="Password" name="password" ng-model="loginBox.password"/>
       </div>
+      <div class="error-space">
+        <span ng-show="loginBox.authResult.status !== 'success'" class="label label-error">{{loginBox.authResult.reason}}</span>
+      </div>
       <div class="row pull-right">
         <span class=""><input type="button" class="btn btn-primary" ng-click="loginBox.attemptLogin()" value="Login"/></span>
-        <span class=""><input type="reset" class="btn btn-default" value="Cancel"/></span>
+        <span class=""><input type="button" class="btn btn-success" ng-click="loginBox.openRegister()" value="Register"/></span>
       </div>
     </form>
   </div>

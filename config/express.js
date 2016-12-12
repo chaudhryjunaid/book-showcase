@@ -35,7 +35,7 @@ app.use(compression({
 app.use(express.static(config.root + '/client'));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
 app.use(expressBunyanLogger({
   name: 'express',
   excludes: ['user-agent', 'body', 'short-body', 'req-headers', 'res-headers', 'req', 'res', 'incoming', 'response-hrtime']

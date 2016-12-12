@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('bookShowcase.home', ['bookShowcase.common'])
+angular.module('bookShowcase.home', ['bookShowcase.common', 'ui.router'])
 
-.controller('HomeCtrl', ['$log', 'bkSession', function($log, bkSession) {
+.controller('HomeCtrl', ['$log', function($log) {
   var homeCtrl = this;
   $log.debug('in home ctrl');
 }]);
