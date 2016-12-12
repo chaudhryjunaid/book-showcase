@@ -48,5 +48,5 @@ exports.signout = function (req, res) {
 };
 
 exports.me = function (req, res) {
-  return res.jsonp({status: 'success', data: {user: req.user || null});
+  return res.jsonp({status: 'success', data: {user: req.user || null}});
 };

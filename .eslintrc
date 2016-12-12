@@ -9,9 +9,17 @@
     "no-multi-spaces": 0,
     "no-console": 0,
     "no-unused-expressions": 0,
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "comma-dangle": 0,
+    "space-after-keywords": 0,
+    "keyword-spacing": 0
   },
   "globals": {
-    "global": false
+    "global": true,
+    "angular": true,
+    "jquery": true,
+    "$": true,
+    "_": true,
+    "require": true
   }
 }
