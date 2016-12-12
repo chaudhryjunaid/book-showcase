@@ -14,27 +14,29 @@ exports.create = function (req, res, next) {
   req.log.info('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
 
   return user.save().then(function () {
-    req.login(user, function (err) {
+    return req.login(user, function (err) {
       if (err) {
         return next(err);
       }
-      return res.send({status: 'success', message: 'User sign up successful.'});
+      return res.send({status: 'success', message: 'User sign up successful.', data: {user: user}});
     });
   }).catch(next);
 };
 
-exports.signin = function(req, res, next) {
-  return passport.authenticate('local', function(err, user, info) {
+exports.signin = function (req, res, next) {
+  return passport.authenticate('local', function (err, user, info) {
     if (err) {
       return next(err);
     }
     if (!user) {
       req.log.info('Sign in failed with:', info);
-      return res.status(401).json({message: 'Sign in failed: ', info: info});
+      return res.status(401).json({status: 'error', message: 'Sign in failed: ', data: {info: info}});
     }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.send({status: 'success', message: 'Sign in successful.'})
+    return req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.send({status: 'success', message: 'Sign in successful.', data: {user: user}});
     });
   })(req, res, next);
 };
@@ -46,5 +48,5 @@ exports.signout = function (req, res) {
 };
 
 exports.me = function (req, res) {
-  return res.jsonp(req.user || null);
+  return res.jsonp({status: 'success', data: {user: req.user || null});
 };

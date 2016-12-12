@@ -21,37 +21,37 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 function normalizePort(val) {
-    var port = typeof val === 'number' ? val : parseInt(val, 10);
+  var port = typeof val === 'number' ? val : parseInt(val, 10);
 
-    if (port >= 0) {
-        // port number
-        return port;
-    }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-    return false;
+  return false;
 }
 
 function onError(error) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            log.error('Port ' + port + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            log.error('Port ' + port + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      log.error('Port ' + port + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      log.error('Port ' + port + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 }
 
 function onListening() {
-    log.info('Listening on port: ' + server.address().port);
+  log.info('Listening on port: ' + server.address().port);
 }
 

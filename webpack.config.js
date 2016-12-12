@@ -5,7 +5,7 @@ module.exports = {
   context: path.join(__dirname, '/client'), // use absolute path to avoid errors
   entry: ['./app.js'],
   output: {
-    path: path.join(__dirname,'client','dist'),
+    path: path.join(__dirname, 'client', 'dist'),
     publicPath: 'dist/',
     filename: 'bundle.js'
   },

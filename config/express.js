@@ -26,7 +26,7 @@ app.locals.pretty = true;
 
 //Should be placed before express.static
 app.use(compression({
-  filter: function(req, res) {
+  filter: function (req, res) {
     return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
   },
   level: 9
@@ -38,10 +38,10 @@ app.use(express.static(config.root + '/client'));
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(expressBunyanLogger({
   name: 'express',
-  excludes: ['user-agent','body','short-body','req-headers','res-headers','req','res','incoming', 'response-hrtime']
+  excludes: ['user-agent', 'body', 'short-body', 'req-headers', 'res-headers', 'req', 'res', 'incoming', 'response-hrtime']
 }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 //express session configuration
@@ -53,28 +53,28 @@ app.use(passport.session());
 
 // setup routes
 var routes = require('../app/routes');
-_.each(routes, function(val, key) {
+_.each(routes, function (val, key) {
   app.use(key, val);
 });
 
 app.get('*', home.index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function (req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
 
-    // render the error page
-    res.status(err.status || 500);
-    res.json({message: err.message, err: err});
+  res.status(err.status || 500);
+  res.json({
+    status: 'error',
+    message: err.message,
+    data: {err: err}
+  });
 });
 
 module.exports = app;
