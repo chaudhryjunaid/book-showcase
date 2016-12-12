@@ -1,5 +1,5 @@
 angular.module('bookShowcase.common')
-  .service('bkAuth', ['$http', '$log', 'bkSession', '$state', '$rootScope',
+  .factory('bkAuth', ['$http', '$log', 'bkSession', '$state', '$rootScope',
     function($http, $log, bkSession, $state, $rootScope) {
       return {
         login(username, password) {
@@ -54,21 +54,21 @@ angular.module('bookShowcase.common')
         },
         check() {
           if(bkSession.isAuthenticatedSync()) {
-            if($rootScope.toState === 'login') {
+            if($rootScope.toState === 'authenticated.login' || $rootScope.toState === '/') {
               return $state.go('authenticated.home');
             }
             return bkSession.getUserSync();
           }
           this.refresh().then(function(success) {
             if(success) {
-              if($rootScope.toState === 'login') {
+              if($rootScope.toState === 'authenticated.login') {
                 return $state.go('authenticated.home');
               }
               return bkSession.getUserSync();
             }
           });
-          if($rootScope.toState !== 'login') {
-            return $state.go('login');
+          if($rootScope.toState !== 'authenticated.login') {
+            return $state.go('authenticated.login');
           }
           return null;
         }

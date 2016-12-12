@@ -1,5 +1,5 @@
 angular.module('bookShowcase.common')
-  .service('bkSession', ['$q', '$log', function($q, $log) {
+  .factory('bkSession', ['$q', '$log', function($q, $log) {
     const sessionData = {
       user: null,
       lastAuthResult: null

@@ -29,15 +29,16 @@ angular.module('bookShowcase', [
   'bookShowcase.components',
   'bookShowcase.common',
   'bookShowcase.login',
-  'bookShowcase.home',
-]).config(['$urlRouterProvider', '$stateProvider', 'bkAuth', function($urlRouterProvider, $stateProvider, bkAuth) {
+  'bookShowcase.home'
+]).config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
   $stateProvider
     .state({
       name: 'authenticated',
       abstract: true,
-      url: '/',
       resolve: {
-        user: bkAuth.check()
+        user: ['bkAuth', function(bkAuth) {
+          return bkAuth.check();
+        }]
       },
       template: '<div ui-view />'
     })
@@ -56,8 +57,8 @@ angular.module('bookShowcase', [
       template: require('./home/home.html'),
     });
 
-  // $urlRouterProvider.when('/', '/login');
-  // $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.when('/', '/home');
+  $urlRouterProvider.otherwise('/home');
 }]).run(['$rootScope', '$state', '$stateParams', 'bkAuth', function($rootScope, $state, $stateParams, bkAuth) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
     $rootScope.toState = toState;
