@@ -22,7 +22,7 @@ angular.module('bookShowcase.common')
       },
       setUserSync(user) {
         sessionData.user = user;
-        setLastAuthResultSync({status: 'success'});
+        this.setLastAuthResultSync({status: 'success'});
         return sessionData.user ;
       },
       getUserSync() {

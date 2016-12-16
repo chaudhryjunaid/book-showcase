@@ -35,15 +35,15 @@ angular.module('bookShowcase', [
     .state({
       name: 'authenticated',
       abstract: true,
-      resolve: {
-        user: ['bkAuth', function(bkAuth) {
-          return bkAuth.check();
-        }]
-      },
       template: '<div ui-view />'
     })
     .state({
-      name: 'authenticated.login',
+      name: 'anon',
+      abstract: true,
+      template: '<div ui-view />'
+    })
+    .state({
+      name: 'anon.login',
       url: '/login',
       controller: 'LoginCtrl',
       controllerAs: 'loginCtrl',
@@ -59,10 +59,20 @@ angular.module('bookShowcase', [
 
   $urlRouterProvider.when('/', '/home');
   $urlRouterProvider.otherwise('/home');
-}]).run(['$rootScope', '$state', '$stateParams', 'bkAuth', function($rootScope, $state, $stateParams, bkAuth) {
+}]).run(['$rootScope', '$state', '$stateParams', 'bkAuth', '$log', function($rootScope, $state, $stateParams, bkAuth, $log) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
     $rootScope.toState = toState;
     $rootScope.toStateParams = toStateParams;
-    bkAuth.check();
+    $log.debug('state=', toState);
+    bkAuth.check().then((authorized) => {
+      $log.debug('User authorized: ', authorized);
+      if(!authorized &&  toState.name !== 'login') {
+        $rootScope.returnToState = $rootScope.toState;
+        $rootScope.returnToStateParams = $rootScope.toStateParams;
+        $state.go('login');
+      } else if(authorized && /^anon/.test(toState.name)) {
+        $state.go('authenticated.home');
+      }
+    });
   });
 }]);

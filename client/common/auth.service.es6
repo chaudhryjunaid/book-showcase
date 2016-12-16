@@ -1,6 +1,6 @@
 angular.module('bookShowcase.common')
-  .factory('bkAuth', ['$http', '$log', 'bkSession', '$state', '$rootScope',
-    function($http, $log, bkSession, $state, $rootScope) {
+  .factory('bkAuth', ['$http', '$log', 'bkSession', '$q',
+    function($http, $log, bkSession, $q) {
       return {
         login(username, password) {
           return $http.post('/user/signin', {username: username, password: password})
@@ -38,39 +38,28 @@ angular.module('bookShowcase.common')
         },
         refresh() {
           return $http.get('/user/me')
-            .then(function(response) {
-              $log.debug(response.data.message);
+            .then((response) => {
+              $log.debug('Server auth response: ', response.data);
               if(response.data.status === 'success') {
                 bkSession.setUserSync(response.data.data.user);
                 return true;
               }
               bkSession.setLastAuthResultSync('failure', response.data.message);
               return false;
-            }).catch(function(err) {
-              $log.debug('Error refreshing signin info: ', err);
+            }).catch((err) => {
+              $log.debug('Error refreshing auth info: ', err);
               bkSession.setLastAuthResultSync('failure', 'Error refreshing user info!');
               return false;
             });
         },
         check() {
-          if(bkSession.isAuthenticatedSync()) {
-            if($rootScope.toState === 'authenticated.login' || $rootScope.toState === '/') {
-              return $state.go('authenticated.home');
-            }
-            return bkSession.getUserSync();
+          if(!bkSession.isAuthenticatedSync()) {
+            return this.refresh().catch((err) => {
+              $log.debug('Error refreshing user auth status: ', err);
+              return false;
+            });
           }
-          this.refresh().then(function(success) {
-            if(success) {
-              if($rootScope.toState === 'authenticated.login') {
-                return $state.go('authenticated.home');
-              }
-              return bkSession.getUserSync();
-            }
-          });
-          if($rootScope.toState !== 'authenticated.login') {
-            return $state.go('authenticated.login');
-          }
-          return null;
+          return $q.when(true);
         }
       };
     }]);
