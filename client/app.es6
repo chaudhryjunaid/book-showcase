@@ -60,17 +60,19 @@ angular.module('bookShowcase', [
   $urlRouterProvider.when('/', '/home');
   $urlRouterProvider.otherwise('/home');
 }]).run(['$rootScope', '$state', '$stateParams', 'bkAuth', '$log', function($rootScope, $state, $stateParams, bkAuth, $log) {
-  $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
+  $rootScope.$on('$stateChangeStart', (event, toState, toStateParams) => {
     $rootScope.toState = toState;
     $rootScope.toStateParams = toStateParams;
     $log.debug('state=', toState);
     bkAuth.check().then((authorized) => {
       $log.debug('User authorized: ', authorized);
-      if(!authorized &&  toState.name !== 'login') {
+      if(!authorized &&  /^anon\./.test(toState.name)) {
+        $log.debug('User logged out; redirecting to login.');
         $rootScope.returnToState = $rootScope.toState;
         $rootScope.returnToStateParams = $rootScope.toStateParams;
         $state.go('login');
-      } else if(authorized && /^anon/.test(toState.name)) {
+      } else if(authorized && /^anon\./.test(toState.name)) {
+        $log.debug('User logged in; redirecting to home.');
         $state.go('authenticated.home');
       }
     });
