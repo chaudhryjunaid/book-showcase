@@ -41,6 +41,7 @@ angular.module('bookShowcase.common')
             .then((response) => {
               $log.debug('Server auth response: ', response.data);
               if(response.data.status === 'success') {
+                $log.debug('user=', response.data.data.user);
                 bkSession.setUserSync(response.data.data.user);
                 return true;
               }

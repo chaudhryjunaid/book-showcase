@@ -1,0 +1,13 @@
+{{userInfo.authenticated}}
+{{userInfo.user}}
+<li ng-show="true">
+  Hello! {{userInfo.authenticated}}
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+     role="button" aria-haspopup="true" aria-expanded="false"><span id="user-info-text"></span> <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    <li><a href="#">Settings</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+  </ul>
+</li>
+

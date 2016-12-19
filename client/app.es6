@@ -8,7 +8,7 @@ require('./app.styl');
 require('./bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js');
 
 require('lodash');
-require('jquery');
+$ = require('jquery');
 require('bootstrap');
 require('angular');
 require('angular-ui-router');
@@ -35,7 +35,12 @@ angular.module('bookShowcase', [
     .state({
       name: 'authenticated',
       abstract: true,
-      template: '<div ui-view />'
+      template: '<div ui-view />',
+      resolve: {
+        authenticated: ['bkAuth', function(bkAuth) {
+          return bkAuth.check();
+        }]
+      }
     })
     .state({
       name: 'anon',
