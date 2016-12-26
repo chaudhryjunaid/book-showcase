@@ -50,6 +50,9 @@ jspm_packages
 # Webstorm
 .idea
 
+# Visual Studio Code
+.vscode
+
 # Project specific files
 config/env/development.json5
 config/env/production.json5
