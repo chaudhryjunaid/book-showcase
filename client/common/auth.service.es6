@@ -36,6 +36,23 @@ angular.module('bookShowcase.common')
             return false;
           });
         },
+        register(data) {
+          return $http.post('/user', data)
+            .then(function(response) {
+              $log.debug(response.data.message);
+              if(response.data.status === 'success') {
+                bkSession.setUserSync(response.data.data.user);
+                return true;
+              }
+              bkSession.setLastAuthResultSync('failure', response.data.data.info);
+              return false;
+            }).catch(function(err) {
+              $log.debug('Error during signin: ', err);
+              const info = 'There was an error signing in. Please try again!';
+              bkSession.setLastAuthResultSync('failure', info);
+              return false;
+            });
+        }
         refresh() {
           return $http.get('/user/me')
             .then((response) => {

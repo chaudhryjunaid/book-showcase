@@ -61,6 +61,14 @@ angular.module('bookShowcase', [
       template: require('./login/login.html'),
     })
     .state({
+      name: 'anon.register',
+      url: '/register',
+      parent: 'anon',
+      controller: 'RegisterCtrl',
+      controllerAs: 'registerCtrl',
+      template: require('./register/register.html'),
+    })
+    .state({
       name: 'authenticated.home',
       url: '/home',
       parent: 'authenticated',
