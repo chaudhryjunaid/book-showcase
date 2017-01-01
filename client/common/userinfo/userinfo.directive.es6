@@ -4,13 +4,11 @@ angular.module('bookShowcase.common')
       template: require('./userinfo.html'),
       restrict: 'EA',
       replace: true,
-      controllerAs: 'userInfo',
-      controller: ['$log', 'bkSession', 'bkAuth', ($log, bkSession, bkAuth) => {
-        const userInfo = this;
-        $log.debug('user info controller called;');
-        userInfo.user = bkSession.getUserSync();
-        userInfo.authenticated = bkSession.isAuthenticatedSync();
-        $log.debug('inside uic: ', userInfo.authenticated, userInfo.user);
-      }]
+      controller: function(bkSession) {
+        console.log('inside ctrl: ', bkSession.getUserSync());
+      },
+      link: function($scope, $element, $attrs, $ctrl) {
+        console.log('inside link', bkSession.getUserSync());
+      }
     };
   }]);

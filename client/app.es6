@@ -33,23 +33,29 @@ angular.module('bookShowcase', [
 ]).config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
   $stateProvider
     .state({
-      name: 'authenticated',
-      abstract: true,
-      template: '<div ui-view />',
-      resolve: {
-        authenticated: ['bkAuth', function(bkAuth) {
-          return bkAuth.check();
-        }]
-      }
-    })
-    .state({
       name: 'anon',
       abstract: true,
       template: '<div ui-view />'
     })
     .state({
+      name: 'authenticated',
+      abstract: true,
+      template: '<bk-nav-bar></bk-nav-bar><div ui-view />',
+      resolve: {
+        authenticated: ['bkAuth', '$state', '$timeout', function(bkAuth, $state, $timeout) {
+          return bkAuth.check().then( (authenticatedStatus) => {
+            if (!authenticatedStatus) {
+              throw new Error('not authenticated');
+            }
+            return authenticatedStatus;
+          });
+        }]
+      }
+    })
+    .state({
       name: 'anon.login',
       url: '/login',
+      parent: 'anon',
       controller: 'LoginCtrl',
       controllerAs: 'loginCtrl',
       template: require('./login/login.html'),
@@ -57,6 +63,7 @@ angular.module('bookShowcase', [
     .state({
       name: 'authenticated.home',
       url: '/home',
+      parent: 'authenticated',
       controller: 'HomeCtrl',
       controllerAs: 'homeCtrl',
       template: require('./home/home.html'),
@@ -75,11 +82,17 @@ angular.module('bookShowcase', [
         $log.debug('User logged out; redirecting to login.');
         $rootScope.returnToState = $rootScope.toState;
         $rootScope.returnToStateParams = $rootScope.toStateParams;
-        $state.go('login');
+        $state.go('anon.login');
       } else if(authorized && /^anon\./.test(toState.name)) {
         $log.debug('User logged in; redirecting to home.');
         $state.go('authenticated.home');
       }
     });
+  });
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+    event.preventDefault();
+    if (error.message === 'not authenticated') {
+      $state.go('anon.login');
+    }
   });
 }]);
